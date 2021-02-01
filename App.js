@@ -18,19 +18,12 @@ import {
   TextInput,
 } from 'react-native';
 import {generateTestCrash} from 'appcenter-crashes';
-
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 import {trackEvent} from 'appcenter-analytics';
 
 const App = () => {
   const [numberA, setNumberA] = useState(0);
   const [numberB, setNumberB] = useState(0);
+  const [total, setTotal] = useState(0)
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -40,12 +33,15 @@ const App = () => {
             placeholder="Number a: "
             onChangeText={setNumberA}
             style={styles.input}
+            keyboardType="decimal-pad"
           />
           <TextInput
             placeholder="Number b: "
             onChangeText={setNumberB}
             style={styles.input}
+            keyboardType="decimal-pad"
           />
+          <Text style={styles.txtTotal}>Total is: {total}</Text>
         </View>
 
         <Button
@@ -55,6 +51,7 @@ const App = () => {
             // generateTestCrash()
             // trackEvent('onClick', {title: 'btn-click-2'})
             // trackEvent('CLICK-EVENT');
+            setTotal(parseInt(numberA) + parseInt(numberB));
           }}
         />
       </SafeAreaView>
@@ -74,6 +71,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
     paddingHorizontal: 5,
   },
+  txtTotal: {
+    marginVertical: 20
+  }
 });
 
 export default App;
